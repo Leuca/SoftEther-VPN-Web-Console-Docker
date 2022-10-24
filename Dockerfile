@@ -1,17 +1,9 @@
-FROM debian:latest
-MAINTAINER luca@luco.cc
-RUN apt update
-RUN apt upgrade -y
-RUN apt -y install cmake gcc g++ libncurses5-dev libreadline-dev libssl-dev make zlib1g-dev
-WORKDIR /home
-ADD SoftEtherVPN_Stable/ .
-ADD SEVPN-WebAdmin/ .
-RUN cp -r wwwroot src/bin/hamcore/
-RUN ./configure
-RUN make
-RUN make install
-WORKDIR /
-RUN rm -rf /home
+FROM centos:stream9
+MAINTAINER luca@magrone.cc
+RUN dnf update -y
+RUN dnf install dnf-plugins-core -y
+RUN dnf copr enable lucamagrone/SoftEtherVPN-Console -y
+RUN dnf install softethervpn-server -y
 ADD vpn.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/vpn.sh
 ENTRYPOINT ["/usr/local/bin/vpn.sh"]
