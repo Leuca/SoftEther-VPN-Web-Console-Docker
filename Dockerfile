@@ -1,5 +1,5 @@
 FROM centos:stream9
-MAINTAINER luca@magrone.cc
+LABEL org.opencontainers.image.authors="luca@magrone.cc"
 RUN dnf update -y
 RUN dnf install dnf-plugins-core -y
 RUN dnf copr enable lucamagrone/SoftEtherVPN-Console -y
